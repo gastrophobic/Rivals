@@ -2,6 +2,7 @@ import sys
 from colorama import Fore, Style, init
 init()
 import os
+import json
 
 # user guide for making your own
 # addon/addon2 will set replacee/replacement to a string. addon can be a list (optional), addon2 cant
@@ -29,12 +30,16 @@ def push(json_data, start_key, start_key2, addon, addon2, skip, game_pre, displa
     main_module = sys.modules['__main__']
     main_module.backbone(json_data, start_key, start_key2, addon, addon2, skip, game_pre, display_names)
 
-def bloxstrap():
-    base_path = os.path.join(os.getenv('LOCALAPPDATA'), 'Bloxstrap', 'Modifications')
+with open(os.path.join("storage", "settings.json"), 'r') as f:
+    settings_data = json.load(f)
+bootstrapper_type = settings_data.get("bootstrapper")
+
+def bootstrapper():
+    base_path = os.path.join(os.getenv('LOCALAPPDATA'), bootstrapper_type, 'Modifications')
     nested_folders = ["PlatformContent", "pc", "textures", "sky"]
 
     if not os.path.exists(base_path):
-        print(f"{Fore.RED}bloxstrap not found{Style.RESET_ALL}")
+        print(f"{Fore.RED}{bootstrapper_type} not found{Style.RESET_ALL}")
     else:
         path = base_path
         for folder in nested_folders:
@@ -73,7 +78,7 @@ def run(json_data, start_key, start_key2, addon, addon2, skip, game_pre, display
                 case 1:
                     while True:
                         sky_option = get_valid_input(
-                            f"\nIs Bloxstrap sky folder setup?\n"
+                            f"\nIs {bootstrapper_type} sky folder setup?\n"
                             f"1: {Fore.GREEN}yes{Style.RESET_ALL}\n"
                             f"2: {Fore.GREEN}no{Style.RESET_ALL}\n"
                             f"Type 'back' to return to the previous menu.\n: ",
@@ -90,7 +95,7 @@ def run(json_data, start_key, start_key2, addon, addon2, skip, game_pre, display
                                 start_key2 = "remove"
                                 return json_data, start_key, start_key2, addon, addon2, skip, game_pre, display_names
                             case 2:
-                                bloxstrap()
+                                bootstrapper()
                                 start_key = "skyboxes"
                                 start_key2 = "remove"
                                 return json_data, start_key, start_key2, addon, addon2, skip, game_pre, display_names
