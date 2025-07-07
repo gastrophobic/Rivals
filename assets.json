@@ -49,11 +49,9 @@
                 "2650c0779e25134617c7c87712dc025f"
             ]
         },
-        "exploits": {
-            "no flashbang": [
-                "bcabd64667c131d17dbb2a5b0160ca3f",
-                "44db085590dc432534e45faf0624035f"
-            ]
+        "arms": {
+            "left": "b46def18274b69a5ff9b013bc5893742",
+            "right": "6bc31f31e3c21932651ae0e9f71004dd"        
         },
         "hitsounds": {
             "headshot": [
