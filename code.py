@@ -60,6 +60,7 @@ def run(json_data, start_key, start_key2, addon, addon2, skip, game_pre, display
 			f"'Clear full cache' on the main menu, all of your custom changes will be removed!\n: ",
 			valid_values=[0, 1, 2, 3, 4]
 		)
+
         if options == 'back':
             print(f"{Fore.CYAN}\nReturning to main menu.{Style.RESET_ALL}")
             skip = True
