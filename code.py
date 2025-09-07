@@ -56,6 +56,8 @@ def run(json_data, start_key, start_key2, addon, addon2, skip, game_pre, display
             f"3:  {Fore.GREEN}Custom gun sounds{Style.RESET_ALL}\n"
             f"4:  {Fore.GREEN}Invisible (arms / AR){Style.RESET_ALL}\n"
             f"Type 'back' to return to the previous menu.\n: ",
+            f"{Fore.YELLOW}ProTip:{Style.RESET_ALL} If you select 'Cache settings' and choose "
+            f"'Clear full cache' on the main menu, all of your custom changes will be removed!\n: ",
             valid_values=[0, 1, 2, 3, 4]
         )
         if options == 'back':
