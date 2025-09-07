@@ -47,17 +47,19 @@ def bootstrapper():
 
 def run(json_data, start_key, start_key2, addon, addon2, skip, game_pre, display_names):
 
-    while True:
-        options = get_valid_input(
-            f"Asset replacements:\n"
-            f"0:  {Fore.GREEN}Custom{Style.RESET_ALL}\n"
-            f"1:  {Fore.GREEN}Custom skyboxes{Style.RESET_ALL}\n"
-            f"2:  {Fore.GREEN}Custom hitsounds{Style.RESET_ALL}\n"
-            f"3:  {Fore.GREEN}Custom gun sounds{Style.RESET_ALL}\n"
-            f"4:  {Fore.GREEN}Invisible (arms / AR){Style.RESET_ALL}\n"
-            f"Type 'back' to return to the previous menu.\n: ",
-            valid_values=[0, 1, 2, 3, 4]
-        )
+	while True:
+		options = get_valid_input(
+			f"Asset replacements:\n"
+			f"0:  {Fore.GREEN}Custom{Style.RESET_ALL}\n"
+			f"1:  {Fore.GREEN}Custom skyboxes{Style.RESET_ALL}\n"
+			f"2:  {Fore.GREEN}Custom hitsounds{Style.RESET_ALL}\n"
+			f"3:  {Fore.GREEN}Custom gun sounds{Style.RESET_ALL}\n"
+			f"4:  {Fore.GREEN}Invisible (arms / AR){Style.RESET_ALL}\n"
+			f"Type 'back' to return to the previous menu.\n\n"
+			f"{Fore.YELLOW}ProTip:{Style.RESET_ALL} If you select 'Cache settings' and choose "
+			f"'Clear full cache' on the main menu, all of your custom changes will be removed!\n: ",
+			valid_values=[0, 1, 2, 3, 4]
+		)
         if options == 'back':
             print(f"{Fore.CYAN}\nReturning to main menu.{Style.RESET_ALL}")
             skip = True
