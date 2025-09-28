@@ -4,6 +4,14 @@ init()
 import os
 import json
 
+# user guide for making your own
+# addon/addon2 will set replacee/replacement to a string. addon can be a list (optional), addon2 cant
+# start_key/start_key2 will start the user in a json from a set position (make sure the set position doesnt share a name or ill go to the first one)
+# return json_data, start_key, start_key2, addon, addon2, skip, game_pre, display_names finishes an area and returns all the data back and finishes this codes use
+# add a line push(json_data, start_key, start_key2, addon, addon2, skip, game_pre, display_names) for doing multiple changes of seperate things in the same case
+# if you want to skip then set skip to True
+# leaving empty and only returning will make the user enter 2 from the json starting from the top
+
 def get_valid_input(prompt, valid_values=None):
     while True:
         user_input = input(prompt).strip().lower()
@@ -48,17 +56,15 @@ def bootstrapper():
 def run(json_data, start_key, start_key2, addon, addon2, skip, game_pre, display_names):
 
     while True:
-        options = get_valid_input(
-            f"Asset replacements:\n"
-            f"0:  {Fore.GREEN}Custom{Style.RESET_ALL}\n"
-            f"1:  {Fore.GREEN}Custom skyboxes{Style.RESET_ALL}\n"
-            f"2:  {Fore.GREEN}Custom hitsounds{Style.RESET_ALL}\n"
-            f"3:  {Fore.GREEN}Custom gun sounds{Style.RESET_ALL}\n"
-            f"4:  {Fore.GREEN}Invisible (arms / AR){Style.RESET_ALL}\n"
-            f"{Fore.MAGENTA}ProTip:{Style.RESET_ALL} Clearing full cache in 'Cache settings' will remove all custom changes!\n"
-            f"Type 'back' to return to the previous menu.\n: ",
-            valid_values=[0, 1, 2, 3, 4]
-		)
+        options = get_valid_input(f"Asset replacements:\n"
+                        f"0:  {Fore.GREEN}Custom{Style.RESET_ALL}\n"
+                        f"1:  {Fore.GREEN}Custom skyboxes{Style.RESET_ALL}\n"
+                        f"2:  {Fore.GREEN}Custom hitsounds{Style.RESET_ALL}\n"
+                        f"3:  {Fore.GREEN}Custom gun sounds{Style.RESET_ALL}\n"
+                        f"4:  {Fore.GREEN}no arms{Style.RESET_ALL}\n"
+                        f"Type 'back' to return to the previous menu.\n: ",
+                        valid_values=[0, 1, 2, 3, 4] # make sure this is always equal to the amount you have or they wont be able to be selected
+        )
         if options == 'back':
             print(f"{Fore.CYAN}\nReturning to main menu.{Style.RESET_ALL}")
             skip = True
@@ -67,8 +73,8 @@ def run(json_data, start_key, start_key2, addon, addon2, skip, game_pre, display
         try:
             match options:
                 case 0:
+                    #custom is always the same ignore this
                     return json_data, start_key, start_key2, addon, addon2, skip, game_pre, display_names
-
                 case 1:
                     while True:
                         sky_option = get_valid_input(
@@ -80,7 +86,7 @@ def run(json_data, start_key, start_key2, addon, addon2, skip, game_pre, display
                         )
 
                         if sky_option == 'back':
-                            print(f"\n{Fore.CYAN}Returning to Asset replacements.{Style.RESET_ALL}")
+                            print(f"\n{Fore.CYAN}\nReturning to Asset replacements.{Style.RESET_ALL}")
                             break
 
                         match sky_option:
@@ -105,28 +111,10 @@ def run(json_data, start_key, start_key2, addon, addon2, skip, game_pre, display
                     return json_data, start_key, start_key2, addon, addon2, skip, game_pre, display_names
                 
                 case 4:
-                    while True:
-                        invis_option = get_valid_input(
-                            f"\nInvisible options:\n"
-                            f"1: {Fore.GREEN}invis arms{Style.RESET_ALL}\n"
-                            f"2: {Fore.GREEN}invis ar{Style.RESET_ALL}\n"
-                            f"Type 'back' to return to Asset replacements.\n: ",
-                            valid_values=[1, 2]
-                        )
-
-                        if invis_option == 'back':
-                            print(f"{Fore.CYAN}\nReturning to Asset replacements.{Style.RESET_ALL}")
-                            break
-
-                        match invis_option:
-                            case 1:
-                                start_key = "arms"
-                                start_key2 = "mp5"
-                                return json_data, start_key, start_key2, addon, addon2, skip, game_pre, display_names
-                            case 2:
-                                start_key = "assaultrifle"
-                                start_key2 = "mp5"
-                                return json_data, start_key, start_key2, addon, addon2, skip, game_pre, display_names
-
+                    start_key = "arms"
+                    start_key2 = "mp5"
+                    return json_data, start_key, start_key2, addon, addon2, skip, game_pre, display_names
+                
+                
         except Exception as e:
             print(f"{Fore.RED}An error occurred: {e}{Style.RESET_ALL}")
